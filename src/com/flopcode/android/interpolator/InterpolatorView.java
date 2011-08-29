@@ -78,7 +78,7 @@ public class InterpolatorView extends View {
     canvas.drawARGB(0xff, 0, 0, 0);
     if (fInterpolator == null)
       return;
-    
+
     Rect r = new Rect();
     getGlobalVisibleRect(r);
     fWidth = r.width();
@@ -101,5 +101,9 @@ public class InterpolatorView extends View {
 
   private float getX(float v) {
     return v * fWidth;
+  }
+
+  public Object getInterpolator() {
+    return fInterpolator;
   }
 }
