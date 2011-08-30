@@ -50,6 +50,12 @@ public class Activity2 extends android.app.Activity {
 
   }
 
+  int calcXPos(TabWidget tabWidget, int position, float positionOffset, HorizontalScrollView scroller) {
+    final View current = tabWidget.getChildAt(position);
+    final int xPos = (int)(current.getLeft() + current.getWidth()*positionOffset);
+    return xPos;
+  }
+  
   public class TabHostAdapter extends PagerAdapter implements OnPageChangeListener, OnTabChangeListener {
 
     private List<Interpolator> fTabs = new ArrayList<Interpolator>();
@@ -107,10 +113,9 @@ public class Activity2 extends android.app.Activity {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-      final TabWidget tabWidget = fTabHost.getTabWidget();
-      final HorizontalScrollView scroller = (HorizontalScrollView) tabWidget.getParent();
-      final View current = tabWidget.getChildAt(position);
-      final int xPos = (int)(current.getLeft() + current.getWidth()*positionOffset);
+      final TabWidget tw = fTabHost.getTabWidget();
+      final HorizontalScrollView scroller = (HorizontalScrollView) tw.getParent();
+      final int xPos = calcXPos(tw, position, positionOffset, scroller);
       scroller.smoothScrollTo(xPos, 0);
     }
 
